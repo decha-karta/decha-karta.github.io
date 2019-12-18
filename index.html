@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="kr" class="h-100">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="hiddenparts">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>데스티니 차일드 카르타 계산기</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="main.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">데스티니 차일드</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">카르타 계산<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="flex-shrink-0">
+    <div class="container">
+        <h1 class="mt-5">데스티니 차일드 카르타 한계돌파 계산하기</h1>
+        <p>현재 보유하고 있는 카르타의 개수를 입력하면 한계돌파(2400 경험치) 가능한 조합을 알려줍니다.</p>
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <label for="karta_5_exp">5성 경험치 카르타</label>
+                    <input type="number" class="form-control" id="karta_5_exp" aria-describedby="karta5Exp" value="0">
+                    <small id="karta_5_exp_help" class="form-text text-muted">480</small>
+                </div>
+                <div class="col">
+                    <label for="karta_4_exp">4성 경험치 카르타</label>
+                    <input type="number" class="form-control" id="karta_4_exp" aria-describedby="karta4Exp" value="0">
+                    <small id="karta_4_exp_help" class="form-text text-muted">84</small>
+                </div>
+                <div class="col">
+                    <label for="karta_3_exp">3성 경험치 카르타</label>
+                    <input type="number" class="form-control" id="karta_3_exp" aria-describedby="karta3Exp" value="0">
+                    <small id="karta_3_exp_help" class="form-text text-muted">28</small>
+                </div>
+                <div class="col">
+                    <label for="karta_4_nor">4성 카르타</label>
+                    <input type="number" class="form-control" id="karta_4_nor" aria-describedby="karta4Nor" value="0">
+                    <small id="karta_4_nor_help" class="form-text text-muted">24</small>
+                </div>
+                <div class="col">
+                    <label for="karta_3_nor">3성 카르타</label>
+                    <input type="number" class="form-control" id="karta_3_nor" aria-describedby="karta3Nor" value="0">
+                    <small id="karta_3_nor_help" class="form-text text-muted">7</small>
+                </div>
+                <button id="calc" type="button" class="btn btn-primary">계산</button>
+            </div>
+        </form>
+
+        <div style="height: 100px;">
+
+        </div>
+        <div>
+            <table id="exp-table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">5성 경험치 카르타</th>
+                    <th scope="col">4성 경험치 카르타</th>
+                    <th scope="col">3성 경험치 카르타</th>
+                    <th scope="col">4성 카르타</th>
+                    <th scope="col">3성 카르타</th>
+                    <th scope="col">총 경험치</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <p class="text-muted">Copyright 2019. Hiddenparts. All rights reserved.</p>
+        <p class="text-muted">데스티니 차일드는 ShiftUp에서 개발한 게임입니다.</p>
+    </div>
+</footer>
+<script src="jquery-3.4.1.slim.min.js"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')
+</script>
+<script src="bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript">
+    var EXP_5 = 480;
+    var EXP_4 = 84;
+    var EXP_3 = 28;
+    var NOR_4 = 24;
+    var NOR_3 = 7;
+
+    function range(end) {
+        var arr = [];
+        for (var i = 0; i < end; i++) {
+            arr[i] = i;
+        }
+        return arr;
+    }
+
+    $(document).ready(function () {
+        $('#calc').click(function () {
+            $( '#exp-table > tbody').empty();
+
+            var exp5 = parseInt($('input[id="karta_5_exp"]').val(), 10);
+            var exp4 = parseInt($('input[id="karta_4_exp"]').val(), 10);
+            var exp3 = parseInt($('input[id="karta_3_exp"]').val(), 10);
+            var nor4 = parseInt($('input[id="karta_4_nor"]').val(), 10);
+            var nor3 = parseInt($('input[id="karta_3_nor"]').val(), 10);
+            
+            if ((Number.isInteger(exp5) == false) ||
+                (Number.isInteger(exp4) == false) ||
+                (Number.isInteger(exp3) == false) ||
+                (Number.isInteger(nor4) == false) ||
+                (Number.isInteger(nor3) == false)) {
+                alert('숫자만 입력해주세요');
+                return;
+            }
+
+            var noResult = false;
+            for (var a in range(exp5 + 1)) {
+                for (var b in range(exp4 + 1)) {
+                    for (var c in range(exp3 + 1)) {
+                        for (var d in range(nor4 + 1)) {
+                            for (var e in range(nor3 + 1)) {
+                                var sum_exp = (a * EXP_5) + (b * EXP_4) + (c * EXP_3) + (d * NOR_4) + (e * NOR_3);
+
+                                if (sum_exp == 2400) {
+                                    noResult = true;
+                                    $('#exp-table > tbody').append('<tr>' +
+                                        '<td>' + a + '개</td>' + 
+                                        '<td>' + b + '개</td>' + 
+                                        '<td>' + c + '개</td>' + 
+                                        '<td>' + d + '개</td>' + 
+                                        '<td>' + e + '개</td>' + 
+                                        '<td>' + sum_exp + '</td>' + 
+                                        '</tr>');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (noResult == false) {
+                $('#exp-table').append('<tr><td colspan="6">만족하는 카르타 조합이 없습니다.</td></tr>');
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
