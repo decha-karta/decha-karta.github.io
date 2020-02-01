@@ -166,6 +166,16 @@
                 return;
             }
 
+            var sum_exp = (exp5 * EXP_5) + (exp4 * EXP_4) + (exp3 * EXP_3) + (nor4 * NOR_4) + (nor3 * NOR_3);
+            $('#exp-table > tbody').append('<tr>' +
+                '<td>' + exp5 + '개</td>' + 
+                '<td>' + exp4 + '개</td>' + 
+                '<td>' + exp3 + '개</td>' + 
+                '<td>' + nor4 + '개</td>' + 
+                '<td>' + nor3 + '개</td>' + 
+                '<td>' + sum_exp + '</td>' + 
+                '</tr>');
+
             var noResult = false;
             for (var a in range(exp5 + 1)) {
                 for (var b in range(exp4 + 1)) {
